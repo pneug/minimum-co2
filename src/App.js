@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import smileySun from './smileySun.png';
+import smileySun2 from './smileySun2.png';
+import smileySun3 from './smileySun3.png';
 import './App.css';
 import placeholder_segmentation from './transparent.png';
 
@@ -40,7 +43,8 @@ class App extends Component {
     mwh_per_life: '',
     co2_per_year: '',
     co2_per_life: '',
-    price_per_kwh: '0.31'
+    price_per_kwh: '0.31',
+    id: 0
   }
 
   inputSubmittedHandler = async (event) => {
@@ -67,6 +71,7 @@ class App extends Component {
         this.setState({ mwh_per_life: ("mWh per life: " + response["mwh_per_life"] + "mWh") });
         this.setState({ co2_per_year: ("CO2 per year: " + response["co2_per_year"] + "kg CO2") });
         this.setState({ co2_per_life: ("CO2 per life: " + response["co2_per_life"] + "kg CO2") });
+        this.setState({ id: response["id"] });
 
         const init_segmented_img = {
           method: 'GET',
@@ -85,14 +90,14 @@ class App extends Component {
             document.getElementById("seg-img").src = url;
             // document.body.appendChild(img);
 
-            fetch("http://127.0.0.1:5000/get-graph/" + response["id"], init_segmented_img).then(response => {
+            fetch("http://127.0.0.1:5000/get-graph/" + this.state.id, init_segmented_img).then(response => {
               response.blob().then(response => {
                 console.log(response);
-                var url = URL.createObjectURL(response);
-                var img = new Image();
-                img.src = url;
-                document.getElementById("graph-img").src = url;
-                // document.body.appendChild(img);
+                var url2 = URL.createObjectURL(response);
+                var img2 = new Image();
+                img2.src = url;
+                document.getElementById("graph-img").src = url2;
+                // document.body.appendChild(img2);
               });
             }).catch(error => {
               this.setState({ area: "Error getting graph img: " + error });
@@ -133,9 +138,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
+        <h1 className="App-img">
+        <img src={smileySun3} className="App-logo" alt="smileySun3" />
+        </h1>
+
         <header className="App-header">
           <p>
-            This will be the Solar Server!
+            Calculate your Solar Potential!
           </p>
       
           <form>
@@ -153,16 +163,35 @@ class App extends Component {
             </label>
           </form>
 
+          <div className="App-container">
+          <div className="App-product">
+          <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
+          <img src={placeholder_segmentation}  alt="Regular cost vs Solar" id="graph-img" />
+          </div>
+          </div>
+          
+
+          <div className="App-container">
+          
+          <h3 className = "App-info">
+
           <p>{this.state.area}</p>
           <p>{this.state.kwh_per_year}</p>
           <p>{this.state.mwh_per_life}</p>
           <p>{this.state.co2_per_year}</p>
           <p>{this.state.co2_per_life}</p>
+          </h3>
 
-          <div>
-          <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
           
-          <img src={placeholder_segmentation} alt="Costs regular vs solar panels" id="graph-img" />
+
+          <h3 className = "App-info">
+          <p>{this.state.area}</p>
+          <p>{this.state.kwh_per_year}</p>
+          <p>{this.state.mwh_per_life}</p>
+          <p>{this.state.co2_per_year}</p>
+          <p>{this.state.co2_per_life}</p>
+          </h3>
+          
           </div>
 
         </header>
