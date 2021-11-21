@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import logo from './logo.svg';
 import smileySun from './smileySun.png';
 import smileySun2 from './smileySun2.png';
+import smileySun3 from './smileySun3.png';
 import './App.css';
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
 
       <header className="App-header">
         {"\n"}
-        <img src={smileySun} className="App-logo" alt="smileySun" />
+        <img src={smileySun3} className="App-logo" alt="smileySun3" />
         <p>
           This will be the Solar Server!
         </p>
