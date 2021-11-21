@@ -1,11 +1,17 @@
+import React, { Component }  from 'react';
 import logo from './logo.svg';
+import smileySun from './smileySun.png';
+import smileySun2 from './smileySun2.png';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+
+
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        {"\n"}
+        <img src={smileySun} className="App-logo" alt="smileySun" />
         <p>
           This will be the Solar Server!
         </p>
@@ -15,7 +21,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React, Get to know our team!
         </a>
         <form>
           <label>
