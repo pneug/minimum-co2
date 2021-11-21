@@ -4,8 +4,9 @@ import seaborn
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime
+import pathlib
 
-ROOT_DIR = r""
+ROOT_DIR = pathlib.Path.cwd()
 
 rc = {
     'axes.axisbelow': False,
@@ -71,12 +72,12 @@ def plot_compare(title, x, all_y, all_y_names, colors=COLOR_SET, x_label="Years"
     plt.text(x=25 - 9, y=all_y[0][-1] - 3 * all_y[0][1],
              s=f"Advantage after 25y:\n {- 1 * (all_y[1][-1] - all_y[0][-1])}€", color="#06d6a0")
 
+    path = str(pathlib.Path(ROOT_DIR) / f"{title}_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_')}.png")
     if save:
-        figure.savefig(
-            str(pathlib.Path(ROOT_DIR) / f".{title}_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_')}.png"),
-            bbox_inches='tight', dpi=800)
+        figure.savefig(path,
+                       bbox_inches='tight', dpi=800)
 
-    return plt
+    return path
 
 
 ####################################################################################################
@@ -104,10 +105,11 @@ def plot_erstellen(qm):
     be = kn[brake_even_i] - kn[brake_even_i - 1]
     brake_even = brake_even_i - 1 + (kn[brake_even_i - 1] - ks[brake_even_i - 1]) / (al - be)
 
-    return plot_compare(title="Price comparison:", x=list(range(0, 26)), all_y=[kn, ks],
+    return plot_compare(title="price_comparison", x=list(range(0, 26)), all_y=[kn, ks],
                         all_y_names=["Regular", "Solar"],
                         be=brake_even)
 
 
 if __name__ == '__main__':
-    plot_erstellen(100)
+    print("################")
+    print(plot_erstellen(100))
