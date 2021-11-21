@@ -75,7 +75,7 @@ def plot_compare(title, x, all_y, all_y_names, colors=COLOR_SET, x_label="Years"
     path = str(pathlib.Path(ROOT_DIR) / f"{title}_{datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S_')}.png")
     if save:
         figure.savefig(path,
-                       bbox_inches='tight', dpi=800)
+                       bbox_inches='tight', dpi=100)
 
     return path
 

@@ -4,11 +4,13 @@ from flask_cors import CORS, cross_origin
 from RoofData import get_roof_data
 from PIL import Image
 import os
+from kosten import plot_erstellen
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
 
 curr_id = 0
+path = ""
 
 # received_ids = []
 
@@ -33,6 +35,10 @@ def get_info(address, price_kwh):
         os.remove(img_name)
     img.save(img_name)
 
+    global path
+    path = plot_erstellen(data_dict["area"])
+    print(path)
+
     data_dict["id"] = curr_id
     curr_id += 1
     return jsonify(data_dict)
@@ -51,4 +57,5 @@ def load_segmentation_img(id):
 def load_graph_img(id):
     # global received_ids
     # received_ids.append(id)
-    return send_file(get_segmented_img_name(id), 'image/png')
+    global path
+    return send_file(path, 'image/png')
