@@ -4,6 +4,8 @@ After looking online most solar calculators for existing homes are outrageously 
 # What it does
 We take that address of a house and detect the corresponding roof and the available area on it to then give the homeowner an estimation on how much money and CO2 they might be able to save by going solar. 
 
+![](/images/Website.png)
+
 # Starting the React App / Webserver
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
