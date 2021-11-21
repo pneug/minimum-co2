@@ -185,11 +185,10 @@ class App extends Component {
           
 
           <h3 className = "App-info">
-          <p>{this.state.area}</p>
-          <p>{this.state.kwh_per_year}</p>
-          <p>{this.state.mwh_per_life}</p>
-          <p>{this.state.co2_per_year}</p>
-          <p>{this.state.co2_per_life}</p>
+          <p>Solar Providers:</p>
+          <p>https://skysolar.de/</p>
+          <p>https://www.tesla.com/solarpanels</p>
+          <p>https://www.ostrom.de/</p>
           </h3>
           
           </div>
