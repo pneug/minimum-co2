@@ -39,7 +39,7 @@ import placeholder_segmentation from './transparent.png';
 class App extends Component {
   state = {
     area: '',
-    kwh_per_year: '',
+    kwh_per_year: "kWh per year: " + 0 + "kWh",
     mwh_per_life: '',
     co2_per_year: '',
     co2_per_life: '',
@@ -117,7 +117,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+      
           <img src={smileySun3} className="App-logo" alt="smileySun3" />
           <p>
             This will be the Solar Server!
