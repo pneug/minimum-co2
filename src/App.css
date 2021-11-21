@@ -3,13 +3,13 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 25vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 40s linear;
+    animation: App-logo-spin infinite 50s linear;
   }
 }
 
@@ -25,7 +25,12 @@
 }
 
 .App-info {
-color: #fcf5b0 /*##a5e8ff;*/
+color: #fcf5b0 /*#a5e8ff;*/
+}
+
+.App-img {
+  background-color: #ed7a00fa; /* #ed7900;*/
+  font-size: calc(20px + 1vmin);
 }
 
 .App-link {

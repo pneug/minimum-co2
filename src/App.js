@@ -116,9 +116,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
+        <h1 className="App-img">
+        <img src={smileySun3} className="App-logo" alt="smileySun3" />
+        </h1>
+
         <header className="App-header">
       
-          <img src={smileySun3} className="App-logo" alt="smileySun3" />
           <p>
             This will be the Solar Server!
           </p>
