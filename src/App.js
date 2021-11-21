@@ -40,16 +40,17 @@ class App extends Component {
     mwh_per_life: '',
     co2_per_year: '',
     co2_per_life: '',
-    price_per_kwh: ''
+    price_per_kwh: '0.31'
   }
 
   inputSubmittedHandler = async (event) => {
     event.preventDefault();
     this.setState({ area: "loading..." });
-    // get the data from the website "http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'"
+    // get the data from the website "http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'/0.27"
     var address = document.getElementById("address-field").value;
-    var url = "http://127.0.0.1:5000/address/'" + address + "'/0.27"
-    this.setState({ mwh_per_life: ("URL: " + url) });
+    var price_per_kwh = document.getElementById("kwh-price").value;
+    var url = "http://127.0.0.1:5000/address/'" + address + "'/" + price_per_kwh;
+    this.setState({ kwh_per_year: ("URL: " + url) });
     const myInit = {
       method: 'GET',
       headers: {
@@ -81,9 +82,21 @@ class App extends Component {
             var url = URL.createObjectURL(response);
             var img = new Image();
             img.src = url;
-            document.getElementById("seg-img").alt = url;
             document.getElementById("seg-img").src = url;
             // document.body.appendChild(img);
+
+            fetch("http://127.0.0.1:5000/get-graph/" + response["id"], init_segmented_img).then(response => {
+              response.blob().then(response => {
+                console.log(response);
+                var url = URL.createObjectURL(response);
+                var img = new Image();
+                img.src = url;
+                document.getElementById("graph-img").src = url;
+                // document.body.appendChild(img);
+              });
+            }).catch(error => {
+              this.setState({ area: "Error getting graph img: " + error });
+            });
           });
         }).catch(error => {
           this.setState({ area: "Error getting seg img: " + error });
@@ -94,11 +107,16 @@ class App extends Component {
       })
 
     }).catch(response => {
-      this.setState({ response });
+      this.setState({ area: response });
     })
     
     // window.open("http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'");
     return false;
+  }
+
+  priceSubmittedHandler = async (event) => {
+    event.preventDefault();
+    // this.setState({ price_per_kwh: document.getElementById("kwh-price").value });
   }
 
   // <a
@@ -110,11 +128,12 @@ class App extends Component {
   //Learn React
   //</a>
 
+  //<img src={logo} className="App-logo" alt="logo" />
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
             This will be the Solar Server!
           </p>
@@ -127,13 +146,24 @@ class App extends Component {
             <input type="button" value="Submit" onClick={this.inputSubmittedHandler} />
           </form>
 
+          <form>
+            <label>
+              Your current price per kWh:
+              <input type="number" id="kwh-price" name="kwh-price" value="31.94" />
+            </label>
+          </form>
+
           <p>{this.state.area}</p>
           <p>{this.state.kwh_per_year}</p>
           <p>{this.state.mwh_per_life}</p>
           <p>{this.state.co2_per_year}</p>
           <p>{this.state.co2_per_life}</p>
 
+          <div>
           <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
+          
+          <img src={placeholder_segmentation} alt="Costs regular vs solar panels" id="graph-img" />
+          </div>
 
         </header>
       </div>
