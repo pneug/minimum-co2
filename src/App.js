@@ -131,11 +131,13 @@ class App extends Component {
             <input type="button" value="Submit" onClick={this.inputSubmittedHandler} />
           </form>
 
+          <h2 className = "App-info">
           <p>{this.state.area}</p>
           <p>{this.state.kwh_per_year}</p>
           <p>{this.state.mwh_per_life}</p>
           <p>{this.state.co2_per_year}</p>
           <p>{this.state.co2_per_life}</p>
+          </h2>
 
           <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
 
