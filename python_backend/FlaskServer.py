@@ -44,3 +44,11 @@ def load_segmentation_img(id):
     # global received_ids
     # received_ids.append(id)
     return send_file(get_segmented_img_name(id), 'image/png')
+
+
+@app.route("/get-graph/<id>")
+@cross_origin(supports_credentials=True)
+def load_graph_img(id):
+    # global received_ids
+    # received_ids.append(id)
+    return send_file(get_segmented_img_name(id), 'image/png')

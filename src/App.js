@@ -43,16 +43,18 @@ class App extends Component {
     mwh_per_life: '',
     co2_per_year: '',
     co2_per_life: '',
-    price_per_kwh: ''
+    price_per_kwh: '0.31',
+    id: 0
   }
 
   inputSubmittedHandler = async (event) => {
     event.preventDefault();
     this.setState({ area: "loading..." });
-    // get the data from the website "http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'"
+    // get the data from the website "http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'/0.27"
     var address = document.getElementById("address-field").value;
-    var url = "http://127.0.0.1:5000/address/'" + address + "'/0.27"
-    this.setState({ mwh_per_life: ("URL: " + url) });
+    var price_per_kwh = document.getElementById("kwh-price").value;
+    var url = "http://127.0.0.1:5000/address/'" + address + "'/" + price_per_kwh;
+    this.setState({ kwh_per_year: ("URL: " + url) });
     const myInit = {
       method: 'GET',
       headers: {
@@ -69,6 +71,7 @@ class App extends Component {
         this.setState({ mwh_per_life: ("mWh per life: " + response["mwh_per_life"] + "mWh") });
         this.setState({ co2_per_year: ("CO2 per year: " + response["co2_per_year"] + "kg CO2") });
         this.setState({ co2_per_life: ("CO2 per life: " + response["co2_per_life"] + "kg CO2") });
+        this.setState({ id: response["id"] });
 
         const init_segmented_img = {
           method: 'GET',
@@ -84,9 +87,21 @@ class App extends Component {
             var url = URL.createObjectURL(response);
             var img = new Image();
             img.src = url;
-            document.getElementById("seg-img").alt = url;
             document.getElementById("seg-img").src = url;
             // document.body.appendChild(img);
+
+            fetch("http://127.0.0.1:5000/get-graph/" + this.state.id, init_segmented_img).then(response => {
+              response.blob().then(response => {
+                console.log(response);
+                var url2 = URL.createObjectURL(response);
+                var img2 = new Image();
+                img2.src = url;
+                document.getElementById("graph-img").src = url2;
+                // document.body.appendChild(img2);
+              });
+            }).catch(error => {
+              this.setState({ area: "Error getting graph img: " + error });
+            });
           });
         }).catch(error => {
           this.setState({ area: "Error getting seg img: " + error });
@@ -97,11 +112,16 @@ class App extends Component {
       })
 
     }).catch(response => {
-      this.setState({ response });
+      this.setState({ area: response });
     })
     
     // window.open("http://127.0.0.1:5000/address/'goethestr 9, 40670 Meerbusch'");
     return false;
+  }
+
+  priceSubmittedHandler = async (event) => {
+    event.preventDefault();
+    // this.setState({ price_per_kwh: document.getElementById("kwh-price").value });
   }
 
   // <a
@@ -113,6 +133,8 @@ class App extends Component {
   //Learn React
   //</a>
 
+  //<img src={logo} className="App-logo" alt="logo" />
+
   render() {
     return (
       <div className="App">
@@ -122,9 +144,8 @@ class App extends Component {
         </h1>
 
         <header className="App-header">
-      
           <p>
-            This will be the Solar Server!
+            Calculate your Solar Potential!
           </p>
       
           <form>
@@ -135,11 +156,17 @@ class App extends Component {
             <input type="button" value="Submit" onClick={this.inputSubmittedHandler} />
           </form>
 
+          <form>
+            <label>
+              Your current price per kWh:
+              <input type="number" id="kwh-price" name="kwh-price" value="31.94" />
+            </label>
+          </form>
 
           <div className="App-container">
           <div className="App-product">
           <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
-          <img src={smileySun} alt="smileySun" />
+          <img src={placeholder_segmentation}  alt="Regular cost vs Solar" id="graph-img" />
           </div>
           </div>
           
@@ -147,12 +174,15 @@ class App extends Component {
           <div className="App-container">
           
           <h3 className = "App-info">
+
           <p>{this.state.area}</p>
           <p>{this.state.kwh_per_year}</p>
           <p>{this.state.mwh_per_life}</p>
           <p>{this.state.co2_per_year}</p>
           <p>{this.state.co2_per_life}</p>
           </h3>
+
+          
 
           <h3 className = "App-info">
           <p>{this.state.area}</p>
