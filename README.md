@@ -1,12 +1,37 @@
-# Getting Started with Create React App
+# Inspiration
+After looking online most solar calculators for existing homes are outrageously complicated and time-consuming. This does not fit the possibilities of extracting all the demanded information from high-quality satellite images. To reduce the hurdles for possible homeowners to get a quote the only thing that should be of interest is the address. 
+
+# What it does
+We take that address of a house and detect the corresponding roof and the available area on it to then give the homeowner an estimation on how much money and CO2 they might be able to save by going solar. 
+
+# Starting the React App / Webserver
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To set the website up the first time, go to the root repository in a command prompt or anaconda prompt and run 
 
-## Available Scripts
+`npm install`
 
-In the project directory, you can run:
+# Launching the python server
 
-### `npm start`
+Install flask and flask_cors by running 
+
+`pip install flask
+pip install flask_cors`
+
+Open a command promt or anaconda prompt and go to the folder [python_backend](/python_backend) in it. The first time, set the environment variable for flask:
+
+`set FLASK_APP=FlaskServer`
+
+To start the flask server, run 
+
+`flask run`
+
+## Start the Server
+Open a command prompt or anaconda prompt, go to the root of the project and call
+
+`npm start`
+
+This should lead to the following output:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -14,57 +39,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Note
+This project has been established during the virtual 2 day hackathon Hackatum from 19th to 21st November 2021. The project works as intended for some houses with flaat roofs, but might fail for others and can't take tilt of the roof into account.
