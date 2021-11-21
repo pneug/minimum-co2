@@ -114,7 +114,6 @@ class App extends Component {
           </form>
 
           <p>{this.state.userInput}</p>
-          <p>{address_input}</p>
         </header>
       </div>
     );
