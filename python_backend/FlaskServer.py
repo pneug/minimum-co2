@@ -36,7 +36,7 @@ def get_info(address, price_kwh):
     img.save(img_name)
 
     global path
-    path = plot_erstellen(data_dict["area"])
+    path = plot_erstellen(data_dict["area"] / 6)
     print(path)
 
     data_dict["id"] = curr_id
