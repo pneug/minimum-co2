@@ -5,6 +5,7 @@ from PIL import Image
 import numpy as np
 import io
 import cv2
+from CostCalculator import kosten_normal, kosten_mit, kosten_anschaffung
 import roof_sun
 
 mapbox_token = "pk.eyJ1Ijoid3VzZWxtYXBzIiwiYSI6ImNqdTVpc2VibDA4c3E0NXFyMmEycHE3dXUifQ.Wy3_Ou1KrVRkIH1UGb_R3Q"
@@ -144,19 +145,36 @@ def get_roof_data(address):
 
     # kwh_per_m2
 
-    # set img_arr to 0 where img_arr_mask is not 0
-    satellite_img[objects[1] == obj_in_middle] = 0
+    # set img_arr to half its previous value where img_arr_mask is not 0
+    satellite_img[objects[1] == obj_in_middle] = satellite_img[objects[1] == obj_in_middle] / 2
     img_grey[objects[1] != obj_in_middle] = 0
 
     # convert img_grey to img with only r channel
     mask_red = cv2.cvtColor(img_grey, cv2.COLOR_GRAY2RGB)
+    mask_red[mask_red > 0] = 255 / 2
     # set bg channels to 0
     mask_red[:, :, :2] = 0
 
     pil_image = Image.fromarray(satellite_img + mask_red)
     # pil_image.show()
 
-    return m_area, (satellite_img + mask_red)
+    avg_life = 25
+    kwh_per_m2 = 0.2
+    kwh_per_year = m_area * kwh_per_m2
+    mwh_per_life = kwh_per_year * avg_life
+
+    data_dict = {
+        "segmented_img": satellite_img + mask_red,
+        "area": int(m_area),
+        "kwh_per_year": int(kwh_per_year),
+        "mwh_per_life": round(mwh_per_life / 1000, 2),
+        "co2_per_year": int(kwh_per_year * co2_per_kwh / 1000),
+        "co2_per_life": int(mwh_per_life * co2_per_kwh / 1000),
+        "initial_cost": round(kosten_anschaffung(m_area), 2),
+
+    }
+
+    return data_dict
 
 
 if __name__ == "__main__":
