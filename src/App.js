@@ -39,7 +39,7 @@ import placeholder_segmentation from './transparent.png';
 class App extends Component {
   state = {
     area: '',
-    kwh_per_year: "kWh per year: " + 0 + "kWh",
+    kwh_per_year: '',
     mwh_per_life: '',
     co2_per_year: '',
     co2_per_life: '',
@@ -135,15 +135,34 @@ class App extends Component {
             <input type="button" value="Submit" onClick={this.inputSubmittedHandler} />
           </form>
 
-          <h2 className = "App-info">
+
+          <div className="App-container">
+          <div className="App-product">
+          <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
+          <img src={smileySun} alt="smileySun" />
+          </div>
+          </div>
+          
+
+          <div className="App-container">
+          
+          <h3 className = "App-info">
           <p>{this.state.area}</p>
           <p>{this.state.kwh_per_year}</p>
           <p>{this.state.mwh_per_life}</p>
           <p>{this.state.co2_per_year}</p>
           <p>{this.state.co2_per_life}</p>
-          </h2>
+          </h3>
 
-          <img src={placeholder_segmentation} alt="Available area for solar panels" id="seg-img" />
+          <h3 className = "App-info">
+          <p>{this.state.area}</p>
+          <p>{this.state.kwh_per_year}</p>
+          <p>{this.state.mwh_per_life}</p>
+          <p>{this.state.co2_per_year}</p>
+          <p>{this.state.co2_per_life}</p>
+          </h3>
+          
+          </div>
 
         </header>
       </div>
