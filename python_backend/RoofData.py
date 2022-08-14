@@ -10,9 +10,8 @@ import roof_sun
 
 mapbox_token = "pk.eyJ1Ijoid3VzZWxtYXBzIiwiYSI6ImNqdTVpc2VibDA4c3E0NXFyMmEycHE3dXUifQ.Wy3_Ou1KrVRkIH1UGb_R3Q"
 
-address = "Goethestr 9, 40670 Meerbusch"
-address = "Rotwandweg 18, 85748 Garching"
-address = "Admiralbogen 90, 80939 Munich"
+
+address = "Bahnhofweg 20, 82284 Grafrath"
 
 
 def getMeterPerPixel(lat):
